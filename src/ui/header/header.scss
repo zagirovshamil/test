@@ -1,0 +1,88 @@
+@import "../../styles/mixins.scss";
+
+.header {
+  height: 82px;
+  border-radius: 17px;
+  margin: 1%;
+  background: rgba(18, 24, 37, 1);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  &-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: transparent;
+
+    &__logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 44px 0 1rem;
+      background-color: transparent;
+    }
+
+    &__item {
+      width: 180px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      background-color: transparent;
+
+      & img {
+        width: 2rem;
+        height: 2rem;
+        margin-right: 8px;
+        background-color: transparent;
+      }
+    }
+  }
+
+  &-user {
+    width: 178px;
+    height: 50px;
+    border-radius: 6px;
+    margin-right: 1%;
+    border: 1px solid rgba(255, 255, 255, 0.172);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    justify-items: center;
+    padding: 9px 14px;
+    background-color: transparent;
+
+    @include media-l {
+      display: none;
+    }
+
+    &__logo {
+      width: 2rem;
+      height: 2rem;
+      background-color: transparent;
+      display: flex;
+      align-items: center;
+      justify-items: center;
+    }
+
+    &__content {
+      display: flex;
+      flex-direction: column;
+      background-color: transparent;
+
+      &-auth {
+        font-size: 12px;
+        font-weight: 400;
+        line-height: 16px;
+        background-color: transparent;
+      }
+      &-role {
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 18px;
+        background-color: transparent;
+      }
+    }
+  }
+}
