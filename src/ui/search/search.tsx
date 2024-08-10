@@ -1,30 +1,28 @@
-import { useSearchParams } from "react-router-dom";
+import { FC, SyntheticEvent } from "react";
 import "./search.scss";
 
-export const Search = () => {
-  const [searchParams, setSearchParams] = useSearchParams();
+type SearchProps = {
+  onSearch: (query: string) => void;
+  placeholder: string;
+};
 
-  const postQuery = searchParams.get("post") || "";
+export const Search: FC<SearchProps> = ({ onSearch, placeholder }) => {
+  const handleChange = (event: SyntheticEvent<HTMLInputElement>) => {
+    // event.preventDefault();
+    const value = event.currentTarget.value.trim();
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const form = e.target;
-    const query = form.search.value;
-
-    const params = {};
-    setSearchParams({ post: query });
+    onSearch(value);
   };
 
   return (
-    <div>
-      <form autoComplete="off" onSubmit={handleSubmit}>
-        <input
-          type="search"
-          style={{ color: "white", margin: "10px" }}
-          name="search"
-        />
-        <input type="submit" style={{ color: "white" }} value="Search" />
-      </form>
+    <div className="search__wrapper">
+      <input
+        className="search__wrapper--main"
+        type="search"
+        placeholder={placeholder}
+        name="search"
+        onChange={handleChange}
+      />
     </div>
   );
 };

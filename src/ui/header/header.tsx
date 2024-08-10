@@ -4,21 +4,23 @@ import "./header.scss";
 
 export const Header = () => {
   return (
-    <header className="header">
-      <div className="header-content">
-        <div className="header-content__logo">BitTest</div>
-        <div className="header-content__item">
-          <img src={organizationLogo} alt="organization" />
-          Моя организация
+    <>
+      <header className="header">
+        <div className="header-content">
+          <div className="header-content__logo">BitTest</div>
+          <div className="header-content__item">
+            <img src={organizationLogo} alt="organization" />
+            Моя организация
+          </div>
         </div>
-      </div>
-      <div className="header-user">
-        <img className="header-user__logo" src={logo} alt="logo" />
-        <div className="header-user__content">
-          <span className="header-user__content-auth">Вы авторизованы</span>
-          <span className="header-user__content-role">Администратор</span>
+        <div className="header-user">
+          <img className="header-user__logo" src={logo} alt="logo" />
+          <div className="header-user__content">
+            <span className="header-user__content-auth">Вы авторизованы</span>
+            <span className="header-user__content-role">Администратор</span>
+          </div>
         </div>
-      </div>
-    </header>
+      </header>
+    </>
   );
 };

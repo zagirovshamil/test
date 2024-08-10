@@ -1,1 +1,1 @@
-import * from "./aboutpage";
+export * from "./aboutpage";

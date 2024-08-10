@@ -1,1 +1,1 @@
-import * as blogpage from "./blogpage";
+export * from "./blogpage";

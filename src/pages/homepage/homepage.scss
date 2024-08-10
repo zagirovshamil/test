@@ -1,0 +1,33 @@
+.container {
+  color: white;
+  height: 100%;
+  width: 98%;
+  margin: 1% 1% 1% 1%;
+  background: rgba(18, 24, 37, 1);
+  border-radius: 17px;
+
+  & hr {
+    width: 100wh;
+    height: 0%;
+    border: 1px solid rgba(34, 43, 68, 0.5);
+    background-color: transparent;
+  }
+  &__title {
+    height: 100px;
+    background-color: transparent;
+    font-weight: 600;
+    padding: 24px 0 24px 34px;
+  }
+
+  &__main {
+    height: 100px;
+    background-color: transparent;
+    position: relative;
+    font-weight: 600;
+    font-size: 22px;
+    padding: 29px 0 24px 34px;
+  }
+  &__table {
+    background-color: aqua;
+  }
+}

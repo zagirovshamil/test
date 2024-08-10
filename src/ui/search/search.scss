@@ -1,1 +1,44 @@
 @import "../../styles/mixins.scss";
+
+.search__wrapper {
+  width: 1900px;
+  position: relative;
+  background: transparent;
+
+  &--main {
+    width: 95%;
+    height: 46px;
+    margin: 24px 0 24px 34px;
+    background-color: transparent;
+    display: flex;
+    justify-content: center;
+    color: rgba(97, 109, 141, 1);
+    outline: none;
+    border-radius: 8px;
+    padding-left: 36px;
+    border: 1px solid #313e62;
+    background-image: url("../../assets/svg/search-logo.svg");
+    background-repeat: no-repeat;
+    background-position: 12px center;
+
+    &::-webkit-input-placeholder {
+      color: rgba(97, 109, 141, 1);
+    }
+
+    &:-moz-placeholder {
+      color: rgba(97, 109, 141, 1);
+    }
+
+    &::-moz-placeholder {
+      color: rgba(97, 109, 141, 1);
+    }
+
+    &:-ms-input-placeholder {
+      color: rgba(97, 109, 141, 1);
+    }
+    @include media-l {
+      width: 90%;
+      margin: 24px 10px 24px 34px;
+    }
+  }
+}

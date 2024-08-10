@@ -1,15 +1,22 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 import { Search, Table } from "../../ui";
+import "./homepage.scss";
 
 export const Homepage: FC = () => {
+  const [searchQuery, setSearchQuery] = useState<string>("");
+
+  const handleSearch = (query: string): void => {
+    setSearchQuery(query);
+  };
+
   return (
     <>
       <div className="container">
-        <h1>Моя организация</h1>
+        <h1 className="container__title">Моя организация</h1>
         <hr />
-        <div>Пользователи</div>
-        <Search />
-        <Table />
+        <h1 className="container__main">Пользователи</h1>
+        <Search onSearch={handleSearch} placeholder="Поиск..." />
+        <Table searchQuery={searchQuery} />
       </div>
     </>
   );
