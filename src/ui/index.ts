@@ -1,4 +1,4 @@
 export * from "./search";
-export * from "./table";
+export * from "./users";
 export * from "./header";
 export * from "./drawer";

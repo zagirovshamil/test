@@ -1,5 +1,5 @@
 import { FC, useState } from "react";
-import { Search, Table } from "../../ui";
+import { Search, Users } from "../../ui";
 import "./homepage.scss";
 
 export const Homepage: FC = () => {
@@ -16,7 +16,7 @@ export const Homepage: FC = () => {
         <hr />
         <h1 className="container__main">Пользователи</h1>
         <Search onSearch={handleSearch} placeholder="Поиск..." />
-        <Table searchQuery={searchQuery} />
+        <Users searchQuery={searchQuery} />
       </div>
     </>
   );

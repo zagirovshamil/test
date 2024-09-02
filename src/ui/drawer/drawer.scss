@@ -50,6 +50,7 @@
   }
 
   &__button__changeState {
+    padding: 0;
     position: fixed;
     margin: 57px 25px 0 0;
     top: 0;
@@ -58,6 +59,7 @@
   }
 
   &__chart_main {
+    padding: 0;
     position: fixed;
     top: 0;
     right: 0;
@@ -77,6 +79,7 @@
 
 .canvasjs-chart {
   &-credit {
+    padding: 0;
     display: none;
   }
 }

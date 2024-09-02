@@ -2,8 +2,8 @@ import "./drawer.scss";
 import { useStyles } from "./index";
 import CloseIcon from "@mui/icons-material/Close";
 import CanvasJSReact from "@canvasjs/react-stockcharts";
-import { useState, useEffect } from "react";
-import { headerDataForDrawer } from "./consts";
+import { useEffect, useState } from "react";
+import { headerDataForDrawer } from "./drawer.consts";
 import {
   Container,
   Table,
@@ -13,6 +13,9 @@ import {
   TableRow,
 } from "@mui/material";
 
+import { useQuery } from "@tanstack/react-query";
+import { getPersonInfo } from "../../api/index";
+
 interface propsForDrawer {
   id: string;
   email: string;
@@ -21,32 +24,32 @@ interface propsForDrawer {
   URL: string;
 }
 
-export const Drawer = ({
-  id,
-  active,
-  setActive,
-  URL,
-  email,
-}: propsForDrawer) => {
-  const [dataPoints, setDataPoints] = useState([]);
-  const [data, setData] = useState([]);
+export const Drawer = ({ id, active, setActive, email }: propsForDrawer) => {
+  const { classes } = useStyles();
 
-  const fetchData = async (id: string) => {
-    const response = await fetch(`${URL}/${id}/transactions`);
-    const data = await response.json();
+  const [dataPoints, setDataPoints] = useState<any[]>([]);
 
-    setData(data);
+  const { isLoading, error, data } = useQuery({
+    queryKey: ["transactionsKey", id],
+    queryFn: () => getPersonInfo(id),
+  });
 
-    setDataPoints(
-      data.map((item) => ({ x: new Date(item.created_at), y: item.amount }))
-    );
-  };
-
-  console.log("data:", data);
+  console.log("data", data);
 
   useEffect(() => {
-    fetchData(id);
-  }, [id]);
+    if (data) {
+      setDataPoints(
+        data.map((item) => ({
+          x: new Date(item.created_at),
+          y: item.amount,
+        }))
+      );
+    }
+  }, [data]);
+
+  if (isLoading) return <div></div>;
+
+  if (error) return <div></div>;
 
   const CanvasJS = CanvasJSReact.CanvasJS;
   const CanvasJSStockChart = CanvasJSReact.CanvasJSStockChart;
@@ -79,8 +82,6 @@ export const Drawer = ({
     margin: "20px 0 0 0",
   };
 
-  const { classes } = useStyles();
-
   return (
     <div
       className={active ? "modal active" : "modal"}
@@ -107,43 +108,45 @@ export const Drawer = ({
         />
 
         <p className="modal__history">История операций</p>
-
         <Container className={classes.drawerContainer}>
           <Table>
-            <TableHead
-              sx={{
-                display: "flex",
-                flexDirection: "row",
-                width: "100%",
-                backgroundColor: "rgba(14, 12, 21, 1)",
-              }}
-            >
+            <TableHead className={classes.drawerTableHead}>
               {headerDataForDrawer.map((data: string) => {
                 return (
                   <TableRow>
                     <TableCell
-                      sx={{
-                        width: "100%",
-                        display: "flex",
-                        flexDirection: "row",
-                        color: "rgba(156, 163, 175, 1)",
-                      }}
+                      id={data.id}
+                      className={classes.drawerHeaderTableCell}
                       variant="head"
+                      sx={{ color: "rgba(156, 163, 175, 1)", borderBottom: 0 }}
                     >
-                      {data}
+                      {data.name}
                     </TableCell>
                   </TableRow>
                 );
               })}
             </TableHead>
-            <TableBody
-              className={classes.drawerBody}
-              sx={{ display: "flex", flexDirection: "column" }}
-            >
-              {data.map((row) => (
-                <TableRow key={`table-${row.id}`}>
+            {data.slice(0, 5).map((row: any) => (
+              <TableBody className={classes.drawerTableBody}>
+                <TableRow
+                  sx={{
+                    width: "425px",
+                    display: "flex",
+                    alignContent: "center",
+                    justifyContent: "",
+                  }}
+                  className={classes.drawerBody}
+                  key={`table-${row.id}`}
+                >
                   <TableCell
-                    sx={{ color: "rgba(156, 163, 175, 1)", width: "100%" }}
+                    sx={{
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      color: "rgba(156, 163, 175, 1)",
+                      borderBottom: 0,
+                      width: "141.67px",
+                    }}
                     key={`type-${row.id}`}
                     variant="body"
                   >
@@ -155,23 +158,47 @@ export const Drawer = ({
                   </TableCell>
 
                   <TableCell
-                    sx={{ color: "rgba(156, 163, 175, 1)", width: "100%" }}
+                    sx={{
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      border: 0,
+                      width: "141.67px",
+                      color:
+                        row.type === "WRITE_OFF"
+                          ? "green"
+                          : row.type === "REPLENISH"
+                          ? "red"
+                          : "inherit",
+                    }}
                     key={`amount-${row.id}`}
                     variant="body"
                   >
-                    {row.amount}
+                    {row.type === "WRITE_OFF"
+                      ? `+ ${row.amount} BTKN`
+                      : row.type === "REPLENISH"
+                      ? `- ${row.amount} BTKN`
+                      : ""}
                   </TableCell>
 
                   <TableCell
-                    sx={{ color: "rgba(156, 163, 175, 1)", width: "100%" }}
+                    align="center"
+                    sx={{
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      color: "rgba(156, 163, 175, 1)",
+                      borderBottom: 0,
+                      width: "141.67px",
+                    }}
                     key={`tokens-${row.id}`}
                     variant="body"
                   >
                     {new Date(row.created_at).toLocaleString()}
                   </TableCell>
                 </TableRow>
-              ))}
-            </TableBody>
+              </TableBody>
+            ))}
           </Table>
         </Container>
       </div>

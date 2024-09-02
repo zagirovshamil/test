@@ -1,3 +1,4 @@
 export * from "./drawer";
 export * from "./drawer.scss";
-export * from "./styles";
+export * from "./drawer.styles";
+export * from "./drawer.consts";

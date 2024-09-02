@@ -32,8 +32,8 @@ export const useStyles = makeStyles()(() => {
       fontWeight: "500",
       lineHeight: "20px",
       textAlign: "center",
-      borderRadius: "10px",
       borderBottom: "transparent",
+      cursor: "default",
     },
     tableBody: {
       width: "300px",
@@ -41,13 +41,6 @@ export const useStyles = makeStyles()(() => {
       textAlign: "center",
       borderBottom: "1px solid #313E62",
       backgroundColor: "#121825",
-    },
-
-    sortedTitle: {
-      color: "rgba(156, 163, 175, 1) !important",
-      "& .MuiTableSortLabel-icon": {
-        color: "rgba(156, 163, 175, 1) !important",
-      },
     },
   };
 });

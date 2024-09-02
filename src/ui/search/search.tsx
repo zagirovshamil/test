@@ -8,7 +8,6 @@ type SearchProps = {
 
 export const Search: FC<SearchProps> = ({ onSearch, placeholder }) => {
   const handleChange = (event: SyntheticEvent<HTMLInputElement>) => {
-    // event.preventDefault();
     const value = event.currentTarget.value.trim();
 
     onSearch(value);
