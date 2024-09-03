@@ -27,6 +27,7 @@ interface propsForDrawer {
 
 export const Drawer = ({ id, active, setActive, email }: propsForDrawer) => {
   const { classes } = useStyles();
+
   const [dataPoints, setDataPoints] = useState<Transaction[]>([]);
 
   const { isLoading, error, data } = useQuery({

@@ -20,15 +20,12 @@ export const Users: FC<Props> = ({ searchQuery }: Props) => {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [orderBy, setOrderBy] = useState<Order>("tokens%3Aasc");
 
-  const { classes } = useStyles();
-  // React Query
-  console.log("orderBy:", orderBy);
-
   const { isLoading, error, data } = useQuery({
     queryKey: ["queryKey", currentPage, searchQuery, orderBy],
     queryFn: () => getUsersList(currentPage, searchQuery, orderBy),
   });
-  console.log("currentPage:", currentPage);
+
+  const { classes } = useStyles();
 
   if (isLoading) return <div>...loading</div>;
 
