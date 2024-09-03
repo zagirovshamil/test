@@ -7,7 +7,7 @@ export default defineConfig({
   base: "/test/",
   build: {
     rollupOptions: {
-      input: "src/main.tsx",
+      input: "assets/index.html",
     },
   },
 });
