@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://zagirovshamil.github.io/test/",
+  "homepage": "https://zagirovshamil.github.io/",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
