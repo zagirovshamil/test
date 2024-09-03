@@ -15,6 +15,7 @@ import {
 
 import { useQuery } from "@tanstack/react-query";
 import { getPersonInfo } from "../../api/index";
+import { Transaction } from "../users";
 
 interface propsForDrawer {
   id: string;
@@ -26,32 +27,29 @@ interface propsForDrawer {
 
 export const Drawer = ({ id, active, setActive, email }: propsForDrawer) => {
   const { classes } = useStyles();
-
-  const [dataPoints, setDataPoints] = useState<any[]>([]);
+  const [dataPoints, setDataPoints] = useState<Transaction[]>([]);
 
   const { isLoading, error, data } = useQuery({
     queryKey: ["transactionsKey", id],
     queryFn: () => getPersonInfo(id),
   });
 
-  console.log("data", data);
-
   useEffect(() => {
     if (data) {
       setDataPoints(
-        data.map((item) => ({
+        data.map((item: Transaction) => ({
           x: new Date(item.created_at),
           y: item.amount,
         }))
       );
     }
   }, [data]);
+  console.log("data:", data);
 
   if (isLoading) return <div></div>;
 
   if (error) return <div></div>;
 
-  const CanvasJS = CanvasJSReact.CanvasJS;
   const CanvasJSStockChart = CanvasJSReact.CanvasJSStockChart;
 
   const options = {
@@ -111,22 +109,26 @@ export const Drawer = ({ id, active, setActive, email }: propsForDrawer) => {
         <Container className={classes.drawerContainer}>
           <Table>
             <TableHead className={classes.drawerTableHead}>
-              {headerDataForDrawer.map((data: string) => {
-                return (
-                  <TableRow>
-                    <TableCell
-                      id={data.id}
-                      className={classes.drawerHeaderTableCell}
-                      variant="head"
-                      sx={{ color: "rgba(156, 163, 175, 1)", borderBottom: 0 }}
-                    >
-                      {data.name}
-                    </TableCell>
-                  </TableRow>
-                );
-              })}
+              {headerDataForDrawer.map(
+                (data: { name: string; id: number | string }) => {
+                  return (
+                    <TableRow>
+                      <TableCell
+                        id={data.id.toString()}
+                        variant="head"
+                        sx={{
+                          color: "rgba(156, 163, 175, 1)",
+                          borderBottom: 0,
+                        }}
+                      >
+                        {data.name}
+                      </TableCell>
+                    </TableRow>
+                  );
+                }
+              )}
             </TableHead>
-            {data.slice(0, 5).map((row: any) => (
+            {data.slice(0, 5).map((row: Transaction) => (
               <TableBody className={classes.drawerTableBody}>
                 <TableRow
                   sx={{

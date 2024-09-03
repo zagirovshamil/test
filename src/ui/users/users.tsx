@@ -8,7 +8,7 @@ import {
   TableRow,
 } from "@mui/material";
 import { FC, useState } from "react";
-import { useStyles, tableHeadData, UserProps, Order, Props } from "./index";
+import { useStyles, tableHeadData, Order, Props, User } from "./index";
 import { Drawer } from "../index";
 import { useQuery } from "@tanstack/react-query";
 import { getUsersList } from "../../api/index";
@@ -36,12 +36,13 @@ export const Users: FC<Props> = ({ searchQuery }: Props) => {
 
   const listForPagination = data.pages;
   const listWithUser = data.data;
+  console.log("listWithUser:", listWithUser);
 
   const handleChange = (__: React.ChangeEvent<unknown>, value: number) => {
     setCurrentPage(value);
   };
 
-  const logsForTarget = (data: object) => {
+  const logsForTarget = (data: { id: string; email: string }) => {
     setIdForDrawer(data.id);
     setEmailForDrawer(data.email);
   };
@@ -63,33 +64,35 @@ export const Users: FC<Props> = ({ searchQuery }: Props) => {
               borderRadius: "10px 10px 0 0",
             }}
           >
-            {tableHeadData.map((data: object) => {
-              return (
-                <TableRow>
-                  <TableCell
-                    style={{
-                      cursor: data.name === "Токены" ? "pointer" : "default",
-                    }}
-                    className={classes.tableCell}
-                    variant="head"
-                    id={data.id}
-                    onClick={() =>
-                      data.name === "Токены" &&
-                      setOrderBy((prevOrderBy) =>
-                        prevOrderBy === "tokens%3Aasc"
-                          ? "tokens%3Adesc"
-                          : "tokens%3Aasc"
-                      )
-                    }
-                  >
-                    {data.name}
-                  </TableCell>
-                </TableRow>
-              );
-            })}
+            {tableHeadData.map(
+              (data: { name: string; id: number | string }) => {
+                return (
+                  <TableRow>
+                    <TableCell
+                      style={{
+                        cursor: data.name === "Токены" ? "pointer" : "default",
+                      }}
+                      className={classes.tableCell}
+                      variant="head"
+                      id={data.id.toString()}
+                      onClick={() =>
+                        data.name === "Токены" &&
+                        setOrderBy((prevOrderBy) =>
+                          prevOrderBy === "tokens%3Aasc"
+                            ? "tokens%3Adesc"
+                            : "tokens%3Aasc"
+                        )
+                      }
+                    >
+                      {data.name}
+                    </TableCell>
+                  </TableRow>
+                );
+              }
+            )}
           </TableHead>
           <TableBody sx={{ display: "flex", flexDirection: "column" }}>
-            {listWithUser.map((row: UserProps) => (
+            {listWithUser.map((row: User) => (
               <TableRow
                 key={`table-${row.id}`}
                 sx={{ cursor: "pointer" }}

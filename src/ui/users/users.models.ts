@@ -1,5 +1,5 @@
 export type UserProps = {
-  dataList: Post[];
+  dataList: User;
   pages: number;
 };
 
@@ -7,39 +7,45 @@ export type Props = {
   searchQuery: string;
 };
 
-export type Post = {
-  id: string | number;
+export type User = {
+  id: string;
   email: string;
-  tg_id: string | null;
+  tg_id: null | string;
   name: string;
-  password: string | null;
-  avatar: string | null;
-  created_at: string;
+  password: null | string;
   role: string;
-  subscription: Subscription;
-  tgId: null;
-};
-
-export type Subscription = {
-  id: string | number;
-  plan_id: string;
-  user_id: string;
-  tokens: number;
-  additional_tokens: number;
+  subscription: {
+    id: string;
+    plan: {
+      id: string;
+      type: string;
+      currency: string;
+      price: number;
+      tokens: number;
+    };
+    additional_tokens: number;
+    tokens: number;
+    plan_id: string;
+    user_id: string;
+    created_at: string;
+  };
+  avatar: null | string;
   created_at: string;
-  plan: Plan;
 };
 
-export type Plan = {
-  id: string | number;
-  type: string;
-  price: number;
+export type Transaction = {
+  id: string;
+  provider: string;
+  amount: number;
   currency: string;
-  tokens: number;
+  meta: null;
+  created_at: string;
+  external_id: null | string;
+  plan_id: null | string;
+  referral_id: null | string;
+  status: string;
+  type: string;
+  user_id: string;
 };
-
-// export type tableHeadModels = {
-//   data
-// }
 
 export type Order = "tokens%3Aasc" | "tokens%3Adesc";
