@@ -9,9 +9,10 @@ import {
 } from "@mui/material";
 import { FC, useState } from "react";
 import { useStyles, tableHeadData, Order, Props, User } from "./index";
-import { Drawer } from "../index";
+
 import { useQuery } from "@tanstack/react-query";
 import { getUsersList } from "../../api/index";
+import { Drawer } from "../drawer";
 
 export const Users: FC<Props> = ({ searchQuery }: Props) => {
   const [drawerActive, setDrawerActive] = useState<boolean>(false);

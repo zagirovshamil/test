@@ -22,7 +22,6 @@ interface propsForDrawer {
   email: string;
   active: boolean;
   setActive: (active: boolean) => void;
-  URL: string;
 }
 
 export const Drawer = ({ id, active, setActive, email }: propsForDrawer) => {

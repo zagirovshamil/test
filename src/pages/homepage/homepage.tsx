@@ -1,6 +1,7 @@
 import { FC, useState } from "react";
-import { Search, Users } from "../../ui";
+import { Search } from "../../ui";
 import "./homepage.scss";
+import { Users } from "../../ui/users/index";
 
 export const Homepage: FC = () => {
   const [searchQuery, setSearchQuery] = useState<string>("");
